@@ -25,3 +25,12 @@ def get_balance_json():
 @app.route('/assets')
 def show_balance():
     return render_template('assets.html')
+
+@app.route('/rates.json')
+def get_rate_of_return():
+    now = datetime.datetime.now()
+    stime = now - datetime.timedelta(days=30)
+    start_dt = str(request.args.get('start', stime.strftime(TIME_FORMAT)))
+    end_dt = str(request.args.get('end', now.strftime(TIME_FORMAT)))
+    rtn = mongo_service.get_rate_of_return(start_dt, end_dt)
+    return rtn

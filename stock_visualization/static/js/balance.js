@@ -21,7 +21,7 @@ $(document).ready(function(){
 
         var myChart = echarts.init(document.getElementById('result_div'));
         myChart.showLoading();
-        $.getJSON("/balance.json", data, function(result){
+        $.getJSON("/assets.json", data, function(result){
             //alert(JSON.stringify(result));
             myChart.hideLoading();
             var option = {
@@ -52,6 +52,51 @@ $(document).ready(function(){
                 option.xAxis.data[i] = result[i].date;
             }
             myChart.setOption(option);
+
+        });
+
+
+
+        var myChart2 = echarts.init(document.getElementById('rates_div'));
+        myChart2.showLoading();
+        $.getJSON("/rates.json", data, function(result){
+            //alert(JSON.stringify(result));
+            myChart2.hideLoading();
+            var option = {
+                title: {
+                    text: 'Trend',
+                    left: 'center'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['Asset Rate', 'Index Rate'],
+                    top:'bottom'
+                },
+                yAxis: {
+                   type: 'value'
+                },
+                xAxis: {
+                    data: [],
+                    type: 'category'
+                },
+                series: [{
+                    name: "Asset Rate",
+                    type: "line",
+                    data: []
+                }, {
+                    name: "Index Rate",
+                    type: "line",
+                    data: []
+                }]
+            };
+            for (i = 0; i < result['index_rates'].length; i++){
+                option.xAxis.data[i] = result['index_rates'][i].date;
+                option.series[1].data[i] = result['index_rates'][i].rate;
+            }
+            for (i = 0; i < result['asset_rates'].length; i++){
+                option.series[0].data[i] = result['asset_rates'][i].rate;
+            }
+            myChart2.setOption(option);
 
         });
 
