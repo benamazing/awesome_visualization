@@ -93,7 +93,13 @@ $(document).ready(function(){
                 option.xAxis.data[i] = result['index_rates'][i].date;
                 option.series[1].data[i] = result['index_rates'][i].rate;
             }
-            for (i = 0; i < result['asset_rates'].length; i++){
+            len0 = result['asset_rates'].length;
+            len1 = result['index_rates'].length;
+
+            for (i = 0; i < (len1-len0); i++){
+                option.series[0].data[i] = 1;
+            }
+            for (i = (len1-len0); i < len0; i++){
                 option.series[0].data[i] = result['asset_rates'][i].rate;
             }
             myChart2.setOption(option);
