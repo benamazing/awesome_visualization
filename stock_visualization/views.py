@@ -46,5 +46,5 @@ def get_stock_profits():
     return rtn
 
 @app.route('/stock_profits')
-def show_balance():
-    return render_template('assets.html')
+def show_stock_profit_trend():
+    return render_template('stock_profits.html')
