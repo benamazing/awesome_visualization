@@ -32,10 +32,11 @@ $(document).ready(function(){
                 tooltip: {},
                 legend: {
                     data: ['Asset'],
-                    top:'bottom'
+                    left:'right'
                 },
                 yAxis: {
-                   type: 'value'
+                   type: 'value',
+                   min: 200000
                 },
                 xAxis: {
                     data: [],
@@ -44,8 +45,28 @@ $(document).ready(function(){
                 series: [{
                     name: "Asset",
                     type: "line",
-                    data: []
-                }]
+                    data: [],
+                    markPoint: {
+                        symbol: 'pin',
+                        symbolSize: 30,
+
+                        data: [
+                            {type: 'max', name: '最高'},
+                            {type: 'min', name: '最低'},
+                        ]
+                    }
+                }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        start: 0,
+                        end: 100,
+                    },
+                    {
+                        type: 'inside'
+                    }
+                ]
             };
             for (i = 0; i < result.length; i++){
                 option.series[0].data[i] = result[i].assets;
@@ -70,7 +91,7 @@ $(document).ready(function(){
                 tooltip: {},
                 legend: {
                     data: ['Asset Rate', 'Index Rate'],
-                    top:'bottom'
+                    left:'right'
                 },
                 yAxis: {
                    type: 'value'
@@ -87,7 +108,18 @@ $(document).ready(function(){
                     name: "Index Rate",
                     type: "line",
                     data: []
-                }]
+                }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        start: 0,
+                        end: 100,
+                    },
+                    {
+                        type: 'inside'
+                    }
+                ]
             };
             for (i = 0; i < result['index_rates'].length; i++){
                 option.xAxis.data[i] = result['index_rates'][i].date;

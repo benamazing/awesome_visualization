@@ -52,7 +52,18 @@ $(document).ready(function(){
                     name: "Profit",
                     type: "line",
                     data: []
-                }]
+                }],
+                dataZoom: [
+                    {
+                        type: 'slider',
+                        show: true,
+                        start: 0,
+                        end: 100,
+                    },
+                    {
+                        type: 'inside'
+                    }
+                ]
             };
             for (i = 0; i < result.length; i++){
                 option.series[0].data[i] = result[i].profit;
