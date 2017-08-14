@@ -48,7 +48,7 @@ def get_rate_of_return(start, end):
     return json.dumps(results)
 
 def get_stock_profits(start, end, code):
-    results = {}
+    results = []
     db = mongo_client['stock']
     hold_stocks_c = db['hold_stocks']
     holidays = db['stock_holidays'].find().sort("date", 1)
