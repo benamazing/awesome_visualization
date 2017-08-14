@@ -48,3 +48,7 @@ def get_stock_profits():
 @app.route('/stock_profits')
 def show_stock_profit_trend():
     return render_template('stock_profits.html')
+
+@app.route('/mobile')
+def show_mobile():
+    return render_template("mobile/index.html")
