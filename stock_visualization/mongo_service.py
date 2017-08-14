@@ -47,4 +47,24 @@ def get_rate_of_return(start, end):
     results['index_rates'] = index_rates
     return json.dumps(results)
 
-
+def get_stock_profits(start, end, code):
+    results = {}
+    db = mongo_client['stock']
+    hold_stocks_c = db['hold_stocks']
+    holidays = db['stock_holidays'].find().sort("date", 1)
+    holidays_set = set()
+    for r in holidays:
+        holidays_set.add(r['date'])
+    records = hold_stocks_c.find({'date': {'$lte': end, '$gte': start}}).sort('date', 1)
+    for r in records:
+        if r['date'] not in holidays_set:
+            hold_stocks = r['list']
+            for stock in hold_stocks:
+                if stock['stock_code'] == code:
+                    s = {}
+                    s['date'] = r['date']
+                    s['stock_code'] = code
+                    s['profit'] = float(stock['profit'])
+                    s['amount'] = round(float(stock['current_amount']), 0)
+                    results.append(s)
+    return json.dumps(results)

@@ -34,3 +34,17 @@ def get_rate_of_return():
     end_dt = str(request.args.get('end', now.strftime(TIME_FORMAT)))
     rtn = mongo_service.get_rate_of_return(start_dt, end_dt)
     return rtn
+
+@app.route('/stock_profits.json')
+def get_stock_profits():
+    now = datetime.datetime.now()
+    stime = now - datetime.timedelta(days=30)
+    start_dt = str(request.args.get('start', stime.strftime(TIME_FORMAT)))
+    end_dt = str(request.args.get('end', now.strftime(TIME_FORMAT)))
+    code = str(request.args.get('stock_code', now.strftime(TIME_FORMAT)))
+    rtn = mongo_service.get_stock_profits(start_dt, end_dt, code)
+    return rtn
+
+@app.route('/stock_profits')
+def show_balance():
+    return render_template('assets.html')
