@@ -41,7 +41,7 @@ def get_stock_profits():
     stime = now - datetime.timedelta(days=30)
     start_dt = str(request.args.get('start', stime.strftime(TIME_FORMAT)))
     end_dt = str(request.args.get('end', now.strftime(TIME_FORMAT)))
-    code = str(request.args.get('stock_code', now.strftime(TIME_FORMAT)))
+    code = str(request.args.get('stock_code', '000001'))
     rtn = mongo_service.get_stock_profits(start_dt, end_dt, code)
     return rtn
 

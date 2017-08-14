@@ -7,7 +7,7 @@ $(document).ready(function(){
     searchBtn.bind('click', function(){
         from = $('#date_from').val();
         to = $('#date_to').val();
-        code = $('#stock_code').val();
+        stock_code = $('#stock_code').val();
         if (!!!from) {
             alert('Please input from!');
             return;
@@ -16,7 +16,7 @@ $(document).ready(function(){
             alert('Please input to!');
             return;
         }
-        if (!!!code) {
+        if (!!!stock_code) {
             alert('Please input stock code!');
             return;
         }
@@ -24,7 +24,7 @@ $(document).ready(function(){
         data = {}
         data.start = from;
         data.end = to;
-        data.code = code;
+        data.stock_code = stock_code;
 
         var myChart = echarts.init(document.getElementById('result_div'));
         myChart.showLoading();

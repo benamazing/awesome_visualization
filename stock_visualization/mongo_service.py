@@ -60,9 +60,9 @@ def get_stock_profits(start, end, code):
         if r['date'] not in holidays_set:
             hold_stocks = r['list']
             for stock in hold_stocks:
-                if stock['stock_code'] == code:
+                if str(stock['stock_code']) == code:
                     s = {}
-                    s['date'] = r['date']
+                    s['date'] = str(r['date'])
                     s['stock_code'] = code
                     s['profit'] = float(stock['profit'])
                     s['amount'] = round(float(stock['current_amount']), 0)
