@@ -21,6 +21,11 @@ $(document).ready(function(){
             return;
         }
 
+        data = {}
+        data.start = from;
+        data.end = to;
+        data.code = code;
+
         var myChart = echarts.init(document.getElementById('result_div'));
         myChart.showLoading();
         $.getJSON("/stock_profits.json", data, function(result){
