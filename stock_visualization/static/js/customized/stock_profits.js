@@ -40,7 +40,9 @@ $(document).ready(function(){
                     text: 'Trend',
                     left: 'center'
                 },
-                tooltip: {},
+                tooltip: {
+                    trigger: 'axis'
+                },
                 legend: {
                     data: ['Profit', 'Hold'],
                     top:'bottom'
