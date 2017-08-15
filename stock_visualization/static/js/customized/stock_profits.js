@@ -2,6 +2,10 @@ $(document).ready(function(){
 
     $('#date_from').datepicker(option={"dateFormat": "yy-mm-dd"});
     $('#date_to').datepicker(option={"dateFormat": "yy-mm-dd"});
+    $('#stock_code').autocomplete({
+        source: '/stock_list.json',
+        minLength: 3
+    });
 
     var searchBtn = $('#search_button');
     searchBtn.bind('click', function(){
@@ -38,7 +42,7 @@ $(document).ready(function(){
                 },
                 tooltip: {},
                 legend: {
-                    data: ['Profit'],
+                    data: ['Profit', 'Hold'],
                     top:'bottom'
                 },
                 yAxis: {
@@ -51,6 +55,10 @@ $(document).ready(function(){
                 series: [{
                     name: "Profit",
                     type: "line",
+                    data: []
+                }, {
+                    name: "Hold",
+                    type: 'line',
                     data: []
                 }],
                 dataZoom: [
@@ -67,6 +75,7 @@ $(document).ready(function(){
             };
             for (i = 0; i < result.length; i++){
                 option.series[0].data[i] = result[i].profit;
+                option.series[1].data[i] = result[i].amount;
                 option.xAxis.data[i] = result[i].date;
             }
             myChart.setOption(option);

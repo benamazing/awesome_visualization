@@ -10,7 +10,6 @@ with open(os.path.dirname(__file__) + '/conf.json') as f:
     host = conf_obj.get('mongo_host', 'localhost')
 
 mongo_client = pymongo.MongoClient(host=host)
-print(host)
 
 def get_balance(start, end):
     results = []
@@ -68,3 +67,11 @@ def get_stock_profits(start, end, code):
                     s['amount'] = round(float(stock['current_amount']), 0)
                     results.append(s)
     return json.dumps(results)
+
+def get_stock_list_by_code(partial_code):
+    db = mongo_client['stock']
+    stocks_c = db['stock_general_info']
+    records = stocks_c.find({'code': {'$regex': '^' + partial_code + '.*'}}, {'code': 1, '_id': 0, 'name': 1}).sort('code', 1)
+    results = [{'label': '{0} - {1}'.format(str(r['code']), r['name'].encode('utf-8')), 'value': str(r['code']), 'id': str(r['code'])} for r in records]
+    return json.dumps(results)
+

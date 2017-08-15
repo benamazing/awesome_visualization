@@ -52,3 +52,10 @@ def show_stock_profit_trend():
 @app.route('/mobile')
 def show_mobile():
     return render_template("mobile/index.html")
+
+@app.route('/stock_list.json')
+def query_stock_by_code():
+    q = str(request.args.get('term', 'N/A'))
+    if q != 'N/A':
+        rtn = mongo_service.get_stock_list_by_code(q)
+        return rtn
