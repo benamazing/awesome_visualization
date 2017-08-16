@@ -85,5 +85,6 @@ def get_current_hold_stocks():
         hold_stocks = r['list']
         results = [{"stock_code": str(r['stock_code']), "stock_name": r['stock_name'].encode('utf-8'), "amount": round(float(r['current_amount']), 0),
                    "market_value": float(r['current_amount']) * float(r["av_buy_price"]), "profit": float(r['profit'])} for r in hold_stocks]
+        results = sorted(results, key=lambda x: x['market_value'])
     return json.dumps(results)
 

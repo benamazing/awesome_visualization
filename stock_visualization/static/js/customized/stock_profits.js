@@ -29,8 +29,8 @@ $(document).ready(function(){
             {
                 name: 'Market Value',
                 type: 'pie',
-                radius : '70%',
-                center: ['50%', '60%'],
+                radius : '80%',
+                center: ['60%', '60%'],
                 data:[],
                 itemStyle: {
                     emphasis: {
