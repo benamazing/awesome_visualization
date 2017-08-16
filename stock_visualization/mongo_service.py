@@ -92,6 +92,6 @@ def get_current_hold_stocks():
                    "market_value": float(r['current_amount']) * float(r["av_buy_price"]), "profit": float(r['profit'])} for r in hold_stocks]
         # append available asset
         results.append({"stock_code": "available", "stock_name": "可用", "market_value": enable_balance})
-        results = sorted(results, key=lambda x: x['market_value'])
+        results = sorted(results, key=lambda x: x['market_value'], reverse=True)
     return json.dumps(results)
 
