@@ -63,3 +63,4 @@ def query_stock_by_code():
 @app.route('/current_hold_stocks.json')
 def get_current_hold_stocks():
     rtn = mongo_service.get_current_hold_stocks()
+    return rtn
