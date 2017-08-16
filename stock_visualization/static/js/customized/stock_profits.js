@@ -45,8 +45,8 @@ $(document).ready(function(){
     $.getJSON('/current_hold_stocks.json', function(result){
         stock_pie.hideLoading();
         for (i = 0; i < result.length; i++) {
-            legend.data[i] = result[i].stock_name + ' - ' + result[i].stock_code;
-            data[i] = {
+            pie_option.legend.data[i] = result[i].stock_name + ' - ' + result[i].stock_code;
+            pie_option.series[0].data[i] = {
                 value: result[i].market_value,
                 name: result[i].stock_name + ' - ' + result[i].stock_code
             }

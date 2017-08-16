@@ -80,7 +80,7 @@ def get_current_hold_stocks():
     db = mongo_client['stock']
     hold_stocks_c = db['hold_stocks']
     records = hold_stocks_c.find().sort('date', -1)
-    if records.coun() > 0:
+    if records.count() > 0:
         r = records[0]
         hold_stocks = r['list']
         results = [{"stock_code": str(r['stock_code']), "stock_name": r['stock_name'].encode('utf-8'), "amount": round(float(r['current_amount']), 0),
