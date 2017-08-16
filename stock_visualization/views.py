@@ -59,3 +59,7 @@ def query_stock_by_code():
     if q != 'N/A':
         rtn = mongo_service.get_stock_list_by_code(q)
         return rtn
+
+@app.route('/current_hold_stocks.json')
+def get_current_hold_stocks():
+    rtn = mongo_service.get_current_hold_stocks()

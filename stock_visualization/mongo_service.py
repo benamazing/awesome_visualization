@@ -75,3 +75,15 @@ def get_stock_list_by_code(partial_code):
     results = [{'label': '{0} - {1}'.format(str(r['code']), r['name'].encode('utf-8')), 'value': str(r['code']), 'id': str(r['code'])} for r in records]
     return json.dumps(results)
 
+def get_current_hold_stocks():
+    results = []
+    db = mongo_client['stock']
+    hold_stocks_c = db['hold_stocks']
+    records = hold_stocks_c.find().sort('date', -1)
+    if records.coun() > 0:
+        r = records[0]
+        hold_stocks = r['list']
+        results = [{"stock_code": str(r['stock_code']), "stock_name": r['stock_name'].encode('utf-8'), "amount": round(float(r['current_amount']), 0),
+                   "market_value": float(r['current_amount']) * float(r["av_buy_price"]), "profit": float(r['profit'])} for r in hold_stocks]
+    return json.dumps(results)
+
