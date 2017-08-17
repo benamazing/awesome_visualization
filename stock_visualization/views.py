@@ -51,7 +51,7 @@ def show_stock_profit_trend():
 
 @app.route('/mobile')
 def show_mobile():
-    return render_template("mobile/index.html")
+    return render_template("mobile/test.html")
 
 @app.route('/stock_list.json')
 def query_stock_by_code():
