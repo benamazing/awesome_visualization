@@ -64,3 +64,8 @@ def query_stock_by_code():
 def get_current_hold_stocks():
     rtn = mongo_service.get_current_hold_stocks()
     return rtn
+
+
+@app.route('/mobile/hold_stocks')
+def show_hold_stocks_for_mobile():
+    return render_template('mobile/hold_stocks.html')
