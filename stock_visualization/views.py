@@ -3,14 +3,44 @@
 from . import app
 from flask import render_template
 from flask import request
+from flask import url_for, redirect
+from flask import session
+from flask import flash
+from flask import abort
 import datetime
 from . import mongo_service
 
 TIME_FORMAT = '%Y-%m-%d'
 
-# @app.route('/')
-# def hello():
-#     return render_template('index.html')
+@app.route('/')
+def index():
+    return redirect('/login')
+
+
+@app.route('/login', methods =['GET', 'POST'])
+def login():
+    error = None
+    if request.method =='POST':
+        result = mongo_service.validate_user(str(request.form['account']), str(request.form['password']))
+        if not result:
+            error = 'Invalid user/password!'
+        else:
+            session['logged_in'] = True
+            flash('You were successfully logged in!')
+            return redirect('/main')
+    return render_template('login.html', error=error)
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect('/login')
+
+@app.route('/main')
+def show_main():
+    if not session.get('logged_in'):
+        abort(401)
+    return render_template('account_view.html')
 
 @app.route('/assets.json')
 def get_balance_json():
@@ -21,7 +51,6 @@ def get_balance_json():
     rtn = mongo_service.get_balance(start_dt, end_dt)
     return rtn
 
-@app.route('/')
 @app.route('/assets')
 def show_balance():
     return render_template('assets.html')
@@ -47,6 +76,9 @@ def get_stock_profits():
 
 @app.route('/stock_profits')
 def show_stock_profit_trend():
+    if not session.get('logged_in'):
+        abort(401)
+        return redirect('/login')
     return render_template('stock_profits.html')
 
 @app.route('/mobile')
@@ -69,3 +101,5 @@ def get_current_hold_stocks():
 @app.route('/mobile/hold_stocks')
 def show_hold_stocks_for_mobile():
     return render_template('mobile/hold_stocks.html')
+
+

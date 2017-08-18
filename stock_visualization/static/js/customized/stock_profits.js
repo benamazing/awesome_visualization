@@ -55,6 +55,16 @@ $(document).ready(function(){
 
     })
 
+	var resize = function(){
+		stock_pie.style.width = window.innerWidth + 'px';
+		stock_pie.style.height = window.innerHeight * 3/4 + 'px';
+	};
+
+    window.onresize = function(){
+       resize();
+       stock_pie.resize();
+    }
+
     var searchBtn = $('#search_button');
     searchBtn.bind('click', function(){
         from = $('#date_from').val();

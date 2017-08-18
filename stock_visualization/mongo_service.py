@@ -3,6 +3,8 @@
 import pymongo
 import os
 import json
+import hashlib
+import base64
 
 with open(os.path.dirname(__file__) + '/conf.json') as f:
     conf_str = f.read()
@@ -95,3 +97,16 @@ def get_current_hold_stocks():
         results = sorted(results, key=lambda x: x['market_value'], reverse=True)
     return json.dumps(results)
 
+
+def encrpt(password):
+    key1 = base64.b64encode(password)
+    key2 = hashlib.md5(key1).hexdigest()
+    key3 = hashlib.sha1(key2).hexdigest()
+    return key3
+
+def validate_user(user, password):
+    password_encrpt = encrpt(password)
+    db = mongo_client['stock']
+    users_c = db['users']
+    count = users_c.count({"user": user, "password": password_encrpt})
+    return count > 0
