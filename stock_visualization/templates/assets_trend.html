@@ -1,0 +1,60 @@
+{% extends "layout_dashboard.html" %}
+
+{% block title %}
+    Assets Trend
+{% endblock %}
+
+{% block customized_css %}
+  <link rel="stylesheet" href="/static/css/jquery-ui.min.css">
+  <link rel="stylesheet" href="/static/css/customized/customized.css">
+{% endblock %}
+
+{% block MainPanel %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
+  <h2 class="page-header">Date Range</h2>
+  <div class="row placeholders">
+    <div class="col-xs-12 col-sm-12 placeholder">
+      <div id="criteria_div">
+          <form id="criteria_form" name="criteria_form" method="post">
+              <table class="search_table">
+                  <tr>
+                      <td>From:</td>
+                      <td><input id="date_from" type="text"/></td>
+                  </tr>
+                  <tr>
+                      <td>To:</td>
+                      <td><input id="date_to" type="text"/></td>
+                  </tr>
+                  <tr>
+                      <td><input type="button" value="Search" id="search_button"></td>
+                      <td></td>
+                  </tr>
+              </table>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="page-header">Assets Trend</h2>
+  <div class="row placeholders">
+    <div class="col-xs-12 col-sm-12 placeholder">
+      <div id="result_div" style="margin-left:auto; margin-right: auto; width: 90%; min-width: 600px; min-height: 400px;"></div>
+    </div>
+  </div>
+
+  <h2 class="page-header">Rate Trend</h2>
+  <div class="row placeholders">
+    <div class="col-xs-12 col-sm-12 placeholder">
+      <div id="rates_div" style="margin-left:auto; margin-right: auto; width: 90%; min-width: 600px; min-height: 400px;"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block customized_js %}
+    <script type="text/javascript" src="/static/js/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/static/js/customized/balance.js"></script>
+{% endblock %}
+
+

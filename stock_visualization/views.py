@@ -27,7 +27,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were successfully logged in!')
-            return redirect('/main')
+            return redirect('/overview')
     return render_template('login.html', error=error)
 
 @app.route('/logout')
@@ -41,6 +41,26 @@ def show_main():
     if not session.get('logged_in'):
         abort(401)
     return render_template('account_view.html')
+
+@app.route('/overview')
+def show_overview():
+    if not session.get('logged_in'):
+        abort(401)
+    return render_template('overview.html')
+
+
+@app.route('/assets_trend')
+def show_assets_trend():
+    if not session.get('logged_in'):
+        abort(401)
+    return render_template('assets_trend.html')
+
+@app.route('/stock_profit_trend')
+def show_stock_profit_trend():
+    if not session.get('logged_in'):
+        abort(401)
+    return render_template('stock_profit_trend.html')
+
 
 @app.route('/assets.json')
 def get_balance_json():
@@ -75,7 +95,7 @@ def get_stock_profits():
     return rtn
 
 @app.route('/stock_profits')
-def show_stock_profit_trend():
+def show_stock_profits():
     if not session.get('logged_in'):
         abort(401)
         return redirect('/login')

@@ -29,7 +29,9 @@ $(document).ready(function(){
                     text: 'Trend',
                     left: 'center'
                 },
-                tooltip: {},
+                tooltip: {
+                    trigger: 'axis'
+                },
                 legend: {
                     data: ['Asset'],
                     left:'right'
