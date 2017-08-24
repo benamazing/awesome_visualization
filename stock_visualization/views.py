@@ -122,4 +122,7 @@ def get_current_hold_stocks():
 def show_hold_stocks_for_mobile():
     return render_template('mobile/hold_stocks.html')
 
+@app.route('/test')
+def show_test():
+    return render_template('test.html')
 
