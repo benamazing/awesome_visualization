@@ -85,7 +85,8 @@ def get_current_hold_stocks():
     balance_c = db['account_balance']
     summary = balance_c.find().sort('date', -1)
     if summary.count() > 0:
-        enable_balance = float(summary[0]['enable_balance'])
+        enable_balance = float(summary[0].get('enable_balance', 0))
+        # enable_balance = float(summary[0]['enable_balance'])
     records = hold_stocks_c.find().sort('date', -1)
     if records.count() > 0:
         r = records[0]
