@@ -22,6 +22,11 @@ def get_balance(start, end):
         results = [{'date': r['date'], 'assets': float(r['total_assets'])} for r in records]
     return json.dumps(results)
 
+def save_asset(day, asset):
+    db = mongo_client['stock']
+    collection = db['account_balance']
+    collection.update_one({"date": day}, {"$set": {"total_assets": asset}}, upsert=True)
+
 def get_rate_of_return(start, end):
     results = {}
     db = mongo_client['stock']

@@ -9,6 +9,7 @@ from flask import flash
 from flask import abort
 import datetime
 from . import mongo_service
+import json
 
 TIME_FORMAT = '%Y-%m-%d'
 
@@ -61,6 +62,23 @@ def show_stock_profit_trend():
         abort(401)
     return render_template('stock_profit_trend.html')
 
+@app.route('/edit_assets', methods=['GET', 'POST'])
+def show_edit_assets_page():
+    if not session.get('logged_in'):
+        abort(401)
+    if request.method == 'GET':
+        return render_template('edit_assets.html')
+    if request.method == 'POST':
+        result = {}
+        try:
+            day = str(request.form['day'])
+            asset = float(request.form['asset'])
+            mongo_service.save_asset(day, asset)
+            result['code'] = 'success'
+        except Exception, e:
+            result['code'] = 'failed'
+            result['msg'] = str(e)
+        return json.dumps(result)
 
 @app.route('/assets.json')
 def get_balance_json():
